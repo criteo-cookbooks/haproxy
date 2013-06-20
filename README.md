@@ -47,6 +47,8 @@ Attributes
   administrative interface, 22002 by default
 * `node['haproxy']['pid_file']` - the PID file of the haproxy process,
   used in the tuning recipe.
+* `node['haproxy']['global_options']` - an array of options to use
+  for the config file's `global` stanza
 * `node['haproxy']['defaults_options']` - an array of options to use
   for the config file's `defaults` stanza, default is
   ["httplog", "dontlognull", "redispatch"]

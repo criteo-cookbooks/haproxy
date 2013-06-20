@@ -35,6 +35,7 @@ default['haproxy']['admin']['port'] = 22002
 default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
 
 default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
+default['haproxy']['global_options'] = [ '#quiet', '#debug']
 default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['defaults_timeouts']['connect'] = "5s"
 default['haproxy']['defaults_timeouts']['client'] = "50s"
