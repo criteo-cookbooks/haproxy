@@ -27,3 +27,43 @@ suites:
   run_list:
   - recipe[haproxy]
   attributes: {}
+- name: complex
+  run_list:
+  - recipe[haproxy]
+  attributes:
+    haproxy:
+      enable_default_http: false
+      global_options: ['quiet']
+      defaults_timeouts:
+        client: "125s"
+        connect: "5s"
+        server: "125s"
+      listeners:
+        listen:
+          lb_rmq:
+          - balance roundrobin
+          - bind 0.0.0.0:5672
+          - maxconn 20000
+          - mode tcp
+          - server rmq01 10.0.0.1:5672 check inter 10s rise 2 fall 3
+          - server rmq04 10.0.0.4:5672 check inter 10s rise 2 fall 3
+          lb_rmq_http:
+          - balance roundrobin
+          - bind 0.0.0.0:80
+          - maxconn 20000
+          - mode tcp
+          - server  rmq04 10.0.0.4:15672 check inter 10s rise 2 fall 3
+          - server  rmq01 10.0.0.1:15672 check inter 10s rise 2 fall 3
+          health_check:
+          - bind 127.0.0.1:60000
+          - mode health
+          stats:
+          - bind 0.0.0.0:8080
+          - maxconn 10
+          - mode http
+          - stats enable
+          - stats hide-version
+          - stats realm Haproxy
+          - stats uri /proxy?stats
+          - stats auth status:pass123
+
