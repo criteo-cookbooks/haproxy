@@ -35,6 +35,7 @@ default['haproxy']['admin']['port'] = 22002
 default['haproxy']['enable_stats_socket'] = false
 default['haproxy']['stats_socket_path'] = "/var/run/haproxy.sock"
 default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
+default['haproxy']['nbproc'] = nil
 
 default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
 default['haproxy']['x_forwarded_for'] = false
